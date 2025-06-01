@@ -8,7 +8,7 @@ const LoginPage = () => {
       <h1 className={styles.logo}>My Todo App</h1>
       <figure className={styles["logo-img"]}>
         <img
-          src="/my-todo-app/app-logo-medium-img.png"
+          src="/my-todo-app/app-logo-medium.png"
           alt="app-img"
           loading="lazy"
         />

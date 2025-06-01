@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import styles from "./Modal.module.css";
+import CloseButtonIcon from "../../assets/close-button-icon.svg?react";
 
 interface ModalProps {
   title: string;
@@ -18,7 +19,8 @@ export const Modal = ({ title, children, onModalClose }: ModalProps) => {
           className={styles["modal-close"]}
           onClick={onModalClose}
         >
-          <img src="/src/assets/close-button-icon.svg" alt="close-button" />
+          <CloseButtonIcon />
+          {/* <img src="/src/assets/close-button-icon.svg" alt="close-button" /> */}
         </button>
       </div>
     </div>

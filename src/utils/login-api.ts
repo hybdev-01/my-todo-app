@@ -14,8 +14,10 @@ export const userAuth = async ({
       },
     });
 
-    const userData = response.data[0];
-    if (userData.username === username && userData.password === password) {
+    const [userData] = response.data.filter(
+      (user) => user.username === username && user.password === password
+    );
+    if (userData) {
       const newToken = await generateJWT(userData.id);
 
       return {

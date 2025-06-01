@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import styles from "./Header.module.css";
 import { UserContext } from "../../store/UserContext";
-import UserIcon from "../../assets/user-icon-default.svg?react";
+// import UserIcon from "../../assets/user-icon-default.svg?react";
 
 const Header = () => {
   const { user } = useContext(UserContext);
@@ -19,16 +19,16 @@ const Header = () => {
           <p>Hi, {user.firstName}</p>
           <a onClick={onLogoutHandler}>Logout</a>
         </div>
-        <figure>
+        {/* <figure>
           <UserIcon />
-        </figure>
-        {/* <img
-          src="./src/assets/user-icon-default.svg"
+        </figure> */}
+        <img
+          src="./src/assets/user-avatar-default.jpg"
           width="48px"
           height="48px"
           alt="user-icon"
           loading="lazy"
-        /> */}
+        />
       </div>
     </header>
   );
