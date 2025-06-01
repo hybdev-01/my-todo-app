@@ -23,7 +23,7 @@ const Header = () => {
           <UserIcon />
         </figure> */}
         <img
-          src="./src/assets/user-avatar-default.jpg"
+          src="/my-todo-app/user-avatar-default.jpg"
           width="48px"
           height="48px"
           alt="user-icon"
