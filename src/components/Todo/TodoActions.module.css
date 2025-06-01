@@ -1,0 +1,17 @@
+.todo-actions-wrapper {
+
+   display: flex;
+   /* justify-content: space-between; */
+
+   margin-bottom: 1.5rem;
+
+   &>* {
+
+      height: 45px;
+
+      &:last-child {
+         margin-left: auto;
+      }
+   }
+
+}

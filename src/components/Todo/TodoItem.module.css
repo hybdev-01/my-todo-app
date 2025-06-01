@@ -1,0 +1,94 @@
+.todo-item {
+   /* min-height: 2rem */
+   max-height: 3.5rem;
+   padding-bottom: 0.5rem;
+
+   font-weight: 500;
+
+   &:not(:last-child) {
+      margin-bottom: 0.5rem;
+      border-bottom: 1px solid darkgray;
+   }
+
+
+   &>* {
+      display: inline-block;
+      align-content: center;
+      max-height: 3rem;
+      /* min-height: 2rem; */
+
+      vertical-align: middle;
+
+      &:not(:first-child) {
+         text-align: center;
+      }
+
+      &:first-child {
+         width: 5%;
+      }
+
+      &:nth-child(2) {
+         display: inline-flex;
+         align-items: center;
+         column-gap: 0.5rem;
+
+         width: 35%;
+
+         word-break: break-word;
+
+         overflow: hidden;
+
+         label {
+            flex-grow: 1;
+            max-height: 3rem;
+
+
+            cursor: pointer;
+
+            align-self: baseline;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            /* Устанавливает направление блоков (вертикально) */
+            -webkit-line-clamp: 2;
+            /* Скрываем переполненный текст */
+            text-overflow: ellipsis;
+
+         }
+
+      }
+
+      &:not(:first-child):not(:nth-child(2)) {
+         width: 20%;
+      }
+   }
+
+   .item-input {
+      margin: 0;
+      padding: 0;
+
+      width: 15px;
+      height: 15px;
+   }
+
+
+   .status-inProgress {
+      color: orange;
+   }
+
+   .status-completed {
+      color: dodgerblue;
+   }
+
+   .status-expired {
+      color: rgb(220, 42, 42)
+   }
+
+   .actions {
+      display: inline-flex;
+      justify-content: space-evenly;
+      align-items: center;
+   }
+
+
+}

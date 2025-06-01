@@ -1,0 +1,50 @@
+.pagination {
+
+   margin: 2rem auto;
+   text-align: center;
+
+   li {
+      display: inline-block;
+
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+
+
+      a {
+         display: inline-block;
+         text-align: center;
+
+         font-size: 1.125rem;
+         font-weight: 500;
+         line-height: 42px;
+
+         width: 45px;
+         height: 45px;
+
+         border: 1px solid azure;
+         border-radius: 0.5rem;
+
+         margin-right: 1rem;
+         cursor: pointer;
+
+         color: azure;
+         background-color: #6DB636;
+
+         &:hover {
+            color: #6DB636;
+            background-color: azure;
+            border-color: #6DB636;
+         }
+      }
+   }
+
+   .selected {
+      a {
+         color: #6DB636;
+         background-color: azure;
+         border-color: #6DB636;
+      }
+   }
+
+}

@@ -1,0 +1,53 @@
+.filter-status {
+
+   position: relative;
+
+
+   #status-filter {
+
+      appearance: none;
+
+      font: inherit;
+
+      font-size: 1.125rem;
+      font-weight: 500;
+
+      margin: 0;
+      padding-inline: 0.875rem;
+
+      height: 100%;
+      min-width: 180px;
+
+      border: 1px solid #6DB636;
+      border-radius: 0.5rem;
+
+      background-color: azure;
+
+      color: #6DB636;
+
+      option {
+         color: black;
+      }
+
+   }
+
+   .custom-arrow {
+      position: absolute;
+      top: 50%;
+      right: 0.875rem;
+
+      pointer-events: none;
+
+      transform: translateY(-50%) rotate(90deg);
+
+      width: 24px;
+      height: 24px;
+
+      cursor: pointer;
+
+      svg {
+         fill: #6DB636;
+      }
+   }
+
+}
