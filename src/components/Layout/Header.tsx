@@ -19,7 +19,7 @@ const Header = () => {
           <a onClick={onLogoutHandler}>Logout</a>
         </div>
         <img
-          src="my-todo-app/src/assets/user-icon-default.svg"
+          src="/src/assets/user-icon-default.svg"
           width="48px"
           height="48px"
           alt="user-icon"
