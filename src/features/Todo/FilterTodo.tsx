@@ -52,10 +52,9 @@ export const FilterTodo = ({ onSelectFilterHandler }: FilterTodoProps) => {
       .then((todos) =>
         currentFilterTodos(todos, selectFilterValue, today, { page, limit })
       )
-      .then(([filteredTodo, allTodos]) => {
-        console.log(filteredTodo, allTodos.length);
-        getAllTodos([filteredTodo, allTodos.length]);
-      });
+      .then(([filteredTodo, allTodos]) =>
+        getAllTodos([filteredTodo, allTodos.length])
+      );
   }, [selectFilterValue, page, limit]);
 
   return (

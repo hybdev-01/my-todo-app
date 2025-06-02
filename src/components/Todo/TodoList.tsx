@@ -10,11 +10,6 @@ export const TodoList = memo(() => {
   const { todos, totalQuantity, actionType } = useContext(TodoContext);
   const { page, limit, updatePage } = useContext(PaginationContext);
 
-  console.log("all todos =", todos);
-  console.log("total qty =", totalQuantity);
-  console.log("current page =", page);
-  console.log("actionType = ", actionType);
-
   useEffect(() => {
     if (actionType === "DELETED_LAST_TODO") {
       console.log("action type =", actionType);

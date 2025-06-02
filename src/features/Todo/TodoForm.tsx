@@ -49,8 +49,6 @@ export const TodoForm = ({
     // const GMTHour = dateInput.current?.valueAsDate?.getHours() as number;
     today.setHours(0, 0, 0, 0);
 
-    console.log(selectedDate, today);
-
     if (selectedDate && selectedDate.getTime() < today.getTime())
       setDateInputMessage(
         `The date value must be ${today.toLocaleDateString("ru-KZ", {
@@ -115,5 +113,3 @@ export const TodoForm = ({
 };
 
 export default TodoForm;
-
-//today.toISOString().split("T")[0]
