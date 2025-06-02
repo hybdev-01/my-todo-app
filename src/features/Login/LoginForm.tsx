@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../components/UI/Button";
 import styles from "./LoginForm.module.css";
 
@@ -72,6 +72,11 @@ export const LoginForm = ({
     onSubmitData(formData);
     e.currentTarget.reset();
   };
+
+  useEffect(() => {
+    if (nameInput.current) nameInput.current.focus();
+    else loginInput.current?.focus();
+  }, []);
 
   return (
     <form className={styles.form} onSubmit={onSumbitFormHandler}>

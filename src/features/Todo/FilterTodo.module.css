@@ -25,9 +25,12 @@
 
       color: #6DB636;
 
+      cursor: pointer;
+
       option {
          color: black;
       }
+
 
    }
 

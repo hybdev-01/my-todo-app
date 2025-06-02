@@ -42,12 +42,15 @@ export const userSignUp = async (
   data: Omit<User, "id" | "createdAt">
 ): Promise<UserData> => {
   try {
-    const checkUser = await appAPI.get<User[]>("/users", {
+    const response = await appAPI.get<User[]>("/users", {
       params: { username: data.username },
     });
 
-    if (checkUser.data.length)
-      throw new AxiosError("User with that login exists");
+    const [checkUser] = response.data.filter(
+      (user) => user.username === data.username
+    );
+
+    if (checkUser) throw new AxiosError("User with that login exists");
 
     return {} as UserData;
   } catch (e) {

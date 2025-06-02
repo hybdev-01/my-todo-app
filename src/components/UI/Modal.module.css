@@ -32,6 +32,8 @@
 
    z-index: 101;
 
+   color: black;
+   text-shadow: unset;
 }
 
 .title {

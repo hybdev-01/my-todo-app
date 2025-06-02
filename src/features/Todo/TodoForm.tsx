@@ -1,7 +1,7 @@
 import { Button } from "../../components/UI/Button";
 import type { Todo } from "../../types/Todo";
 import styles from "./TodoForm.module.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface TodoFormProps {
   buttonLabel: string;
@@ -43,8 +43,15 @@ export const TodoForm = ({
     if (!dateInput.current?.value.trim())
       setDateInputMessage("This field is required");
 
-    const currentDateValue = dateInput.current?.valueAsDate?.getTime();
-    if (currentDateValue && currentDateValue < today.getTime())
+    const selectedDate = dateInput.current?.valueAsDate;
+    selectedDate?.setHours(0, 0, 0, 0);
+
+    // const GMTHour = dateInput.current?.valueAsDate?.getHours() as number;
+    today.setHours(0, 0, 0, 0);
+
+    console.log(selectedDate, today);
+
+    if (selectedDate && selectedDate.getTime() < today.getTime())
       setDateInputMessage(
         `The date value must be ${today.toLocaleDateString("ru-KZ", {
           day: "2-digit",
@@ -56,17 +63,27 @@ export const TodoForm = ({
     if (
       !textInput.current?.value.trim() ||
       !dateInput.current?.value.trim() ||
-      (currentDateValue && currentDateValue < today.getTime())
+      !selectedDate ||
+      selectedDate.getTime() < today.getTime()
     )
       return;
 
+    const deadlineDate =
+      (selectedDate.getTime() === today.getTime() &&
+        selectedDate.setTime(Date.now())) ||
+      selectedDate.getTime();
+
     onSubmitData({
       text: textInput.current.value,
-      deadline: new Date(dateInput.current.value),
+      deadline: new Date(deadlineDate),
     });
 
     onClick();
   };
+
+  useEffect(() => {
+    if (textInput.current) textInput.current.focus();
+  }, []);
 
   return (
     <form className={styles.form} onSubmit={onSumbitFormHandler}>
@@ -98,3 +115,5 @@ export const TodoForm = ({
 };
 
 export default TodoForm;
+
+//today.toISOString().split("T")[0]

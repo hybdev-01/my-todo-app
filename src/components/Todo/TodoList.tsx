@@ -10,9 +10,15 @@ export const TodoList = memo(() => {
   const { todos, totalQuantity, actionType } = useContext(TodoContext);
   const { page, limit, updatePage } = useContext(PaginationContext);
 
+  console.log("all todos =", todos);
+  console.log("total qty =", totalQuantity);
+  console.log("current page =", page);
+  console.log("actionType = ", actionType);
+
   useEffect(() => {
     if (actionType === "DELETED_LAST_TODO") {
-      updatePage(page > 1 ? page - 1 : page);
+      console.log("action type =", actionType);
+      updatePage(page > 1 ? page - 1 : 1);
     }
 
     if (actionType === "ADD_LIMITED_TODO") {

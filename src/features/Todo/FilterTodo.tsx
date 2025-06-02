@@ -6,6 +6,7 @@ import { getFilteredTodos } from "../../utils/todos-api";
 import TodoContext from "../../store/TodoContext";
 import { PaginationContext } from "../../store/PaginationContext";
 import { UserContext } from "../../store/UserContext";
+import type { Todo } from "../../types/Todo";
 
 const todoFilterStatuses: Record<string, TodoStatus> = {
   all: "All",
@@ -15,12 +16,12 @@ const todoFilterStatuses: Record<string, TodoStatus> = {
 };
 
 interface FilterTodoProps {
-  onCurrentFilter: (filter: string) => void;
+  onSelectFilterHandler: (filter: string) => void;
 }
 
-export const FilterTodo = ({ onCurrentFilter }: FilterTodoProps) => {
+export const FilterTodo = ({ onSelectFilterHandler }: FilterTodoProps) => {
   const { user } = useContext(UserContext);
-  const { getAllTodos } = useContext(TodoContext);
+  const { getAllTodos, actionType, totalQuantity } = useContext(TodoContext);
   const { page, limit, updatePage } = useContext(PaginationContext);
   const [selectFilterValue, setSelectFilterValue] = useState("all");
 
@@ -29,31 +30,32 @@ export const FilterTodo = ({ onCurrentFilter }: FilterTodoProps) => {
     updatePage(1);
   };
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   useEffect(() => {
-    onCurrentFilter(selectFilterValue);
+    if (actionType === "DELETE_TODO" && totalQuantity + 1 > page * limit) {
+      getFilteredTodos(user.id, selectFilterValue, { page, limit })
+        .then((todos) =>
+          currentFilterTodos(todos, selectFilterValue, today, { page, limit })
+        )
+        .then(([filteredTodo, allTodos]) =>
+          getAllTodos([filteredTodo, allTodos.length])
+        );
+    }
+  }, [totalQuantity]);
+
+  useEffect(() => {
+    onSelectFilterHandler(selectFilterValue);
 
     getFilteredTodos(user.id, selectFilterValue, { page, limit })
-      .then((todos) => {
-        switch (selectFilterValue) {
-          case "inProgress":
-            return todos.map((arr) =>
-              arr.filter(
-                (todo) => new Date(todo.deadline).getTime() >= Date.now()
-              )
-            );
-          case "expired":
-            return todos.map((arr) =>
-              arr.filter(
-                (todo) => new Date(todo.deadline).getTime() < Date.now()
-              )
-            );
-          default:
-            return todos;
-        }
-      })
-      .then(([filteredTodo, allTodos]) =>
-        getAllTodos([filteredTodo, allTodos.length])
-      );
+      .then((todos) =>
+        currentFilterTodos(todos, selectFilterValue, today, { page, limit })
+      )
+      .then(([filteredTodo, allTodos]) => {
+        console.log(filteredTodo, allTodos.length);
+        getAllTodos([filteredTodo, allTodos.length]);
+      });
   }, [selectFilterValue, page, limit]);
 
   return (
@@ -75,4 +77,42 @@ export const FilterTodo = ({ onCurrentFilter }: FilterTodoProps) => {
       </div>
     </div>
   );
+};
+
+const currentFilterTodos = (
+  todos: Todo[][],
+  currentFilter: string,
+  today: Date,
+  { page, limit }: { page: number; limit: number }
+) => {
+  switch (currentFilter) {
+    case "inProgress":
+      return todos.map(
+        (arr, idx) =>
+          (idx === 0 &&
+            arr
+              .filter(
+                (todo) => new Date(todo.deadline).getTime() >= today.getTime()
+              )
+              .slice((page - 1) * limit, page * limit)) ||
+          arr.filter(
+            (todo) => new Date(todo.deadline).getTime() >= today.getTime()
+          )
+      );
+    case "expired":
+      return todos.map(
+        (arr, idx) =>
+          (idx === 0 &&
+            arr
+              .filter(
+                (todo) => new Date(todo.deadline).getTime() < today.getTime()
+              )
+              .slice((page - 1) * limit, page * limit)) ||
+          arr.filter(
+            (todo) => new Date(todo.deadline).getTime() < today.getTime()
+          )
+      );
+    default:
+      return todos;
+  }
 };

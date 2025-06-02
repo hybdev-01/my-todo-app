@@ -114,6 +114,11 @@ export const getFilteredTodos = async (
     unknown
   >;
 
+  if (filter === "inProgress" || filter === "expired") {
+    const deleteKey = Object.keys(pagination);
+    deleteKey.forEach((key) => delete currentPageTodos[key]);
+  }
+
   try {
     const filteredTodos = await Promise.all([
       getAllTodosAsync(userId, currentPageTodos),

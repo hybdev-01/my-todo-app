@@ -10,7 +10,9 @@ export const TodoActions = () => {
   return (
     <div className={styles["todo-actions-wrapper"]}>
       <AddTodo filter={currentFilter} />
-      <FilterTodo onCurrentFilter={(filter) => setCurrentFilter(filter)} />
+      <FilterTodo
+        onSelectFilterHandler={(filter) => setCurrentFilter(filter)}
+      />
     </div>
   );
 };

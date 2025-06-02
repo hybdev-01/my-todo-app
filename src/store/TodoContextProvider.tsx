@@ -34,6 +34,19 @@ const todoReducer = (state: TodoStateType, { type, payload }: ActionType) => {
 
   if (type === "ADD_TODO") {
     const [newTodo, limit] = (Array.isArray(payload) && payload) || [];
+
+    //---- Additional check ----
+
+    //If Strict Mode is enabled
+    const isTodoExists = state.todos.find((todo) => todo.id === newTodo.id);
+    if (isTodoExists)
+      return {
+        ...state,
+        totalQuantity: state.totalQuantity + 1,
+        actionType: "",
+      };
+    //---- Additional check (End) ----
+
     if (state.todos.length < limit) {
       state.todos.push(newTodo);
 
@@ -79,7 +92,7 @@ const todoReducer = (state: TodoStateType, { type, payload }: ActionType) => {
         ...state,
         todos: todos,
         totalQuantity: state.totalQuantity - 1,
-        actionType: "",
+        actionType: "DELETE_TODO",
       };
     }
 

@@ -26,9 +26,12 @@ export const TodoItem = memo(
       }
     );
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const currentStatus: TodoStatus = completed
       ? "Completed"
-      : !completed && new Date(deadline).getTime() <= Date.now()
+      : !completed && new Date(deadline).getTime() < today.getTime()
       ? "Expired"
       : "In Progress";
 
